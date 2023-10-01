@@ -141,7 +141,7 @@ namespace Timberborn_FloodSeason
                         NewGameMode newGameMode = sceneParameters.NewGameConfiguration.NewGameMode;
 
                         TemperateMinDuration = newGameMode.TemperateWeatherDuration.Min * 400;
-                        TemperateMaxDuration = newGameMode.TemperateWeatherDuration.Min * 400;
+                        TemperateMaxDuration = newGameMode.TemperateWeatherDuration.Max * 400;
                         OriginalWaterStrengths = null;
 
                         TimeToBadTideToggle = _randomNumberGenerator.Range(TemperateMinDuration*3f, TemperateMaxDuration*4f);
