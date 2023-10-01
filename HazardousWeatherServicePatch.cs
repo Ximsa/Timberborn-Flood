@@ -16,7 +16,7 @@ namespace Timberborn_FloodSeason
             return false;
         }
     }
-
+/*
     [HarmonyPatch(typeof(HazardousWeatherService))]
     [HarmonyPatch("EndHazardousWeather")]
     class HazardousWeatherServiceEndHazardousWeatherPatch
@@ -26,5 +26,5 @@ namespace Timberborn_FloodSeason
         {
             return false;
         }
-    }
+    }*/
 }

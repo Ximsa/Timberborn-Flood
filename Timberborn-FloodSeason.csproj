@@ -1,8 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>Timberborn_FloodSeason</RootNamespace>
+    <AssemblyName>Timberborn-Flood</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -59,6 +60,9 @@
     <Reference Include="Timberborn.Persistence">
       <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.Persistence.dll</HintPath>
     </Reference>
+    <Reference Include="Timberborn.QuickNotificationSystem">
+      <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.QuickNotificationSystem.dll</HintPath>
+    </Reference>
     <Reference Include="Timberborn.SceneLoading">
       <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.SceneLoading.dll</HintPath>
     </Reference>
@@ -82,6 +86,9 @@
     </Reference>
     <Reference Include="Timberborn.WeatherSystem">
       <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.WeatherSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="Timberborn.WeatherSystemUI">
+      <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.WeatherSystemUI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.InputSystem">
       <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Unity.InputSystem.dll</HintPath>

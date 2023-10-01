@@ -14,7 +14,7 @@ namespace Timberborn_FloodSeason
 #pragma warning disable IDE0051
         static bool Prefix(ref int __result)
         {
-            __result = int.MaxValue;
+            __result = int.MaxValue / 2; // prevent rolling over
             return false;
         }
     }
