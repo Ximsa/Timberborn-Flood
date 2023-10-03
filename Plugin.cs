@@ -12,7 +12,7 @@ using TimberApi.SceneSystem;
 
 namespace Timberborn_FloodSeason
 {
-    [BepInPlugin("org.bepinex.plugins.flood", "Flood", "0.1.4")]
+    [BepInPlugin("org.bepinex.plugins.flood", "Flood", "0.1.6")]
     [Configurator(SceneEntrypoint.InGame)]
     public class Plugin : BaseUnityPlugin, IConfigurator
     {

@@ -329,7 +329,7 @@ namespace Timberborn_FloodSeason
                 {
                     if (source.CurrentStrength / originalStrength < FloodMultiplier) // increase water level
                     {
-                        source.SetStrength(source.CurrentStrength + (IsDrought ? 0.002f : 0.001f) * originalStrength); // Drought reaches threshold quicker so there is less water overall
+                        source.ReinitializeStrength(source.CurrentStrength + (IsDrought ? 0.002f : 0.001f) * originalStrength); // Drought reaches threshold quicker so there is less water overall
                         strength = source.CurrentStrength;
                     }
                     else
@@ -341,7 +341,7 @@ namespace Timberborn_FloodSeason
                 float lowerDroughtBound = (!isNoBadtideSource && !IsBadTide) ? originalStrength : 0; // prevent badtide sources to dry up completely, except on a badtide event
                 strength = source.CurrentStrength;
                 float diff = source.CurrentStrength - originalStrength;
-                source.SetStrength(IsDrought ? Mathf.Max(lowerDroughtBound, source.CurrentStrength * 0.9995f - 0.0005f) : originalStrength + diff * 0.9998f); // roughly decay 20% a day, 50% a day for drought +-*/
+                source.ReinitializeStrength(IsDrought ? Mathf.Max(lowerDroughtBound, source.CurrentStrength * 0.9995f - 0.0005f) : originalStrength + diff * 0.9998f); // roughly decay 20% a day, 50% a day for drought +-*/
             }
             /*Debug.Log(FloodMultiplier 
                 + "\t" + SerializeFloatArray(OriginalWaterStrengths)
