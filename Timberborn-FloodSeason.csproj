@@ -51,17 +51,26 @@
     <Reference Include="Timberborn.Core">
       <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Timberborn.GameSaveRepositorySystem">
+      <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.GameSaveRepositorySystem.dll</HintPath>
+    </Reference>
     <Reference Include="Timberborn.GameSceneLoading">
       <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.GameSceneLoading.dll</HintPath>
     </Reference>
     <Reference Include="Timberborn.HazardousWeatherSystem">
       <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.HazardousWeatherSystem.dll</HintPath>
     </Reference>
+    <Reference Include="Timberborn.MapSystem">
+      <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.MapSystem.dll</HintPath>
+    </Reference>
     <Reference Include="Timberborn.Persistence">
       <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.Persistence.dll</HintPath>
     </Reference>
     <Reference Include="Timberborn.QuickNotificationSystem">
       <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.QuickNotificationSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="Timberborn.SaveSystem">
+      <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.SaveSystem.dll</HintPath>
     </Reference>
     <Reference Include="Timberborn.SceneLoading">
       <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.SceneLoading.dll</HintPath>
