@@ -51,6 +51,9 @@
     <Reference Include="Timberborn.Core">
       <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Timberborn.CoreUI">
+      <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.CoreUI.dll</HintPath>
+    </Reference>
     <Reference Include="Timberborn.GameSaveRepositorySystem">
       <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.GameSaveRepositorySystem.dll</HintPath>
     </Reference>
@@ -87,6 +90,9 @@
     <Reference Include="Timberborn.TimeSystem">
       <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.TimeSystem.dll</HintPath>
     </Reference>
+    <Reference Include="Timberborn.UILayoutSystem">
+      <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.UILayoutSystem.dll</HintPath>
+    </Reference>
     <Reference Include="Timberborn.WaterSourceSystem">
       <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.WaterSourceSystem.dll</HintPath>
     </Reference>
@@ -107,6 +113,9 @@
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>..\Timberborn-Quadruple-Terrain-Height\Libs\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIElementsModule">
+      <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\UnityEngine.UIElementsModule.dll</HintPath>
     </Reference>
   </ItemGroup>
 

@@ -11,6 +11,7 @@ using Timberborn.SceneLoading;
 using Timberborn.SingletonSystem;
 using Timberborn.TickSystem;
 using Timberborn.WaterSourceSystem;
+using Timberborn.WeatherSystem;
 using UnityEngine;
 
 namespace Timberborn_FloodSeason
@@ -39,8 +40,6 @@ namespace Timberborn_FloodSeason
         public float FloodMultiplier;
 
         public float HandicapDuration = 10;
-        public int EventCount;
-
 
         private static readonly SingletonKey WaterControlKey = new SingletonKey("WaterControl");
 
@@ -61,12 +60,9 @@ namespace Timberborn_FloodSeason
         private static readonly PropertyKey<float> TimeToFloodTriggerKey = new PropertyKey<float>("TimeToFloodTrigger");
         private static readonly PropertyKey<float> FloodMultiplierKey = new PropertyKey<float>("FloodMultiplier");
 
-        private static readonly PropertyKey<int> EventCountKey = new PropertyKey<int>("EventCount");
         private static readonly PropertyKey<float> HandicapDurationKey = new PropertyKey<float>("HandicapDuration");
 
         // compatibility with vanilla
-        private static readonly SingletonKey WeatherServiceKey = new SingletonKey("WeatherService");
-        private static readonly PropertyKey<int> CycleKey = new PropertyKey<int>("Cycle");
 
         private static readonly SingletonKey TemperateWeatherDurationServiceKey = new SingletonKey("TemperateWeatherDurationService");
         private static readonly PropertyKey<int> MinTemperateWeatherDurationKey = new PropertyKey<int>("MinTemperateWeatherDuration");
@@ -87,17 +83,29 @@ namespace Timberborn_FloodSeason
         private MapEditorMode _mapEditorMode;
         private SceneLoader _sceneLoader;
         private QuickNotificationService _quickNotificationService;
+        private WeatherService _weatherService;
+        private WeatherPanel _weatherPanel;
 
         private bool first_tick = true;
+        private readonly int ticks_per_day = 360;
 
         [Inject]
-        public void InjectDependencies(IRandomNumberGenerator randomNumberGenerator, ISingletonLoader singletonLoader, MapEditorMode mapEditorMode, SceneLoader sceneLoader, QuickNotificationService quickNotificationService)
+        public void InjectDependencies(
+            IRandomNumberGenerator randomNumberGenerator,
+            ISingletonLoader singletonLoader,
+            MapEditorMode mapEditorMode,
+            SceneLoader sceneLoader,
+            QuickNotificationService quickNotificationService,
+            WeatherService weatherService,
+            WeatherPanel weatherPanel)
         {
             _randomNumberGenerator = randomNumberGenerator;
             _singletonLoader = singletonLoader;
             _mapEditorMode = mapEditorMode;
             _sceneLoader = sceneLoader;
             _quickNotificationService = quickNotificationService;
+            _weatherService = weatherService;
+            _weatherPanel = weatherPanel;
         }
         public void Save(ISingletonSaver singletonSaver)
         {
@@ -121,7 +129,6 @@ namespace Timberborn_FloodSeason
                 singleton.Set(TimeToFloodTriggerKey, TimeToFloodTrigger);
                 singleton.Set(FloodMultiplierKey, FloodMultiplier);
 
-                singleton.Set(EventCountKey, EventCount);
                 singleton.Set(HandicapDurationKey, HandicapDuration);
             }
         }
@@ -152,7 +159,6 @@ namespace Timberborn_FloodSeason
                         TimeToFloodTrigger = singleton.Get(TimeToFloodTriggerKey);
                         FloodMultiplier = singleton.Get(FloodMultiplierKey);
 
-                        EventCount = singleton.Get(EventCountKey);
                         HandicapDuration = singleton.Get(HandicapDurationKey);
 
                         return;
@@ -169,72 +175,65 @@ namespace Timberborn_FloodSeason
                     {
                         NewGameMode newGameMode = sceneParameters.NewGameConfiguration.NewGameMode;
 
-                        TemperateMinDuration = newGameMode.TemperateWeatherDuration.Min * 400;
-                        TemperateMaxDuration = newGameMode.TemperateWeatherDuration.Max * 400;
+                        TemperateMinDuration = newGameMode.TemperateWeatherDuration.Min * ticks_per_day;
+                        TemperateMaxDuration = newGameMode.TemperateWeatherDuration.Max * ticks_per_day;
                         OriginalWaterStrengths = new float[0];
 
-                        TimeToBadTideToggle = _randomNumberGenerator.Range(TemperateMinDuration * 3f, TemperateMaxDuration * 4f);
-                        BadtideMinDuration = newGameMode.BadtideDuration.Min * 400; // a day has (very) roughly 400 seconds
-                        BadtideMaxDuration = newGameMode.BadtideDuration.Max * 400;
+                        TimeToBadTideToggle = _randomNumberGenerator.Range(TemperateMinDuration*2, TemperateMaxDuration * 3f);
+                        BadtideMinDuration = newGameMode.BadtideDuration.Min * ticks_per_day; // a day has (very) roughly 400 seconds
+                        BadtideMaxDuration = newGameMode.BadtideDuration.Max * ticks_per_day;
                         IsBadTide = false;
 
                         TimeToDroughtToggle = _randomNumberGenerator.Range(TemperateMinDuration, TemperateMaxDuration);
-                        DroughtMinDuration = (newGameMode.DroughtDuration.Min + 3) * 400; // Droughts decay their water in around 3 days
-                        DroughtMaxDuration = (newGameMode.DroughtDuration.Max + 3) * 400;
+                        DroughtMinDuration = newGameMode.DroughtDuration.Min * ticks_per_day; // Droughts decay their water in around 3 days
+                        DroughtMaxDuration = newGameMode.DroughtDuration.Max * ticks_per_day;
                         IsDrought = false;
 
-                        TimeToFloodTrigger = _randomNumberGenerator.Range(TemperateMinDuration * 3f, TemperateMaxDuration * 4f);
+                        TimeToFloodTrigger = _randomNumberGenerator.Range(TemperateMinDuration*2, TemperateMaxDuration * 3f);
                         FloodMultiplier = 1;
 
-                        EventCount = 0;
                         HandicapDuration = newGameMode.DroughtDurationHandicapCycles;
                         return;
                     }
                 }
                 // got to do guesswork for the parameters
-                TemperateMinDuration = 5 * 400;
-                TemperateMaxDuration = 15 * 400;
+                TemperateMinDuration = 5 * ticks_per_day;
+                TemperateMaxDuration = 15 * ticks_per_day;
                 OriginalWaterStrengths = new float[0];
 
                 TimeToBadTideToggle = _randomNumberGenerator.Range(TemperateMinDuration, TemperateMaxDuration);
-                BadtideMinDuration = 7 * 400; // a day has (very) roughly 400 seconds
-                BadtideMaxDuration = 20 * 400;
+                BadtideMinDuration = 7 * ticks_per_day; // a day has (very) roughly 400 seconds
+                BadtideMaxDuration = 21 * ticks_per_day;
                 IsBadTide = false;
 
-                TimeToDroughtToggle = _randomNumberGenerator.Range(TemperateMinDuration, TemperateMaxDuration);
-                DroughtMinDuration = 7 * 400;
-                DroughtMaxDuration = 21 * 400;
+                TimeToDroughtToggle = _randomNumberGenerator.Range(0f, TemperateMaxDuration);
+                DroughtMinDuration = 7 * ticks_per_day;
+                DroughtMaxDuration = 21 * ticks_per_day;
                 IsDrought = false;
 
                 TimeToFloodTrigger = _randomNumberGenerator.Range(TemperateMinDuration, TemperateMaxDuration);
                 FloodMultiplier = 1;
 
-                EventCount = 5; // assume the game ran for a bit
                 HandicapDuration = 10;
 
                 if (this._singletonLoader.HasSingleton(TemperateWeatherDurationServiceKey))
                 {
                     IObjectLoader singleton = this._singletonLoader.GetSingleton(TemperateWeatherDurationServiceKey);
-                    TemperateMinDuration = singleton.Get(MinTemperateWeatherDurationKey) * 400;
-                    TemperateMaxDuration = singleton.Get(MaxTemperateWeatherDurationKey) * 400;
+                    TemperateMinDuration = singleton.Get(MinTemperateWeatherDurationKey) * ticks_per_day;
+                    TemperateMaxDuration = singleton.Get(MaxTemperateWeatherDurationKey) * ticks_per_day;
                 }
                 if (this._singletonLoader.HasSingleton(DroughtWeatherKey))
                 {
                     IObjectLoader singleton = this._singletonLoader.GetSingleton(DroughtWeatherKey);
-                    DroughtMinDuration = (3+singleton.Get(MinDroughtDurationKey)) * 400;
-                    DroughtMaxDuration = (3+singleton.Get(MaxDroughtDurationKey)) * 400;
+                    DroughtMinDuration = (3 + singleton.Get(MinDroughtDurationKey)) * ticks_per_day;
+                    DroughtMaxDuration = (3 + singleton.Get(MaxDroughtDurationKey)) * ticks_per_day;
                     HandicapDuration = singleton.Get(HandicapCyclesKey);
                 }
                 if (this._singletonLoader.HasSingleton(BadtideWeatherKey))
                 {
                     IObjectLoader singleton = this._singletonLoader.GetSingleton(BadtideWeatherKey);
-                    BadtideMinDuration = singleton.Get(MinBadtideWeatherDurationKey) * 400;
-                    BadtideMaxDuration = singleton.Get(MaxBadtideWeatherDurationKey) * 400;
-                }
-                if (this._singletonLoader.HasSingleton(WeatherServiceKey))
-                {
-                    IObjectLoader singleton = this._singletonLoader.GetSingleton(WeatherServiceKey);
-                    EventCount = singleton.Get(CycleKey);
+                    BadtideMinDuration = singleton.Get(MinBadtideWeatherDurationKey) * ticks_per_day;
+                    BadtideMaxDuration = singleton.Get(MaxBadtideWeatherDurationKey) * ticks_per_day;
                 }
             }
         }
@@ -249,16 +248,15 @@ namespace Timberborn_FloodSeason
             {
                 OriginalWaterStrengths = waterSources.Select(source => source.SpecifiedStrength).ToArray();
             }
-            // it gets worse and worse and worse and worse, handicap ~ linear until handicapduration is reached, then handicap ~ sqrt(ln)
-            float handicap = MathF.Max(0.3f, MathF.Min(EventCount / HandicapDuration, MathF.Sqrt(MathF.Log(EventCount + 1f) / MathF.Log(MathF.Max(5.0f,HandicapDuration)))));
-
+            // it gets worse and worse and worse and worse, handicap ~ linear until handicapduration is reached, then handicap ~ sqrt . ln
+            float handicap = MathF.Max(0.3f, MathF.Min(_weatherService.Cycle / HandicapDuration, MathF.Sqrt(MathF.Log(_weatherService.Cycle + 1f) / MathF.Log(MathF.Max(5.0f, HandicapDuration)))));
+            bool allowEvents = (_weatherService.CycleDay - 1) * ticks_per_day > TemperateMinDuration; // only allow events processing after TemperateMinDuration expired
+            bool cycleCompleted = false;
             TimeToBadTideToggle -= Time.fixedDeltaTime;
             TimeToDroughtToggle -= Time.fixedDeltaTime;
             TimeToFloodTrigger -= Time.fixedDeltaTime;
-
             if (TimeToBadTideToggle < 0)
             {
-                EventCount++;
                 IsBadTide = !IsBadTide;
                 if (IsBadTide)
                 {
@@ -275,7 +273,8 @@ namespace Timberborn_FloodSeason
                 else
                 {
                     var msg = "Badtide ended";
-                    TimeToBadTideToggle = _randomNumberGenerator.Range(TemperateMinDuration * 1.5f, TemperateMaxDuration * 3f);
+                    cycleCompleted = !IsDrought;
+                    TimeToBadTideToggle = _randomNumberGenerator.Range(TemperateMinDuration, TemperateMaxDuration * 3f);
                     foreach (WaterContaminationSource source in waterSources.Select(source => source.GetComponentFast<WaterContaminationSource>()))
                     {
                         source.ResetContamination();
@@ -286,31 +285,73 @@ namespace Timberborn_FloodSeason
             }
             if (TimeToDroughtToggle < 0)
             {
-                EventCount++;
                 IsDrought = !IsDrought;
-                var msg = "Drought " + (IsDrought ? "started" : "ended");
-                TimeToDroughtToggle = IsDrought ? _randomNumberGenerator.Range(DroughtMinDuration * handicap, DroughtMaxDuration * handicap) : _randomNumberGenerator.Range(TemperateMinDuration, TemperateMaxDuration * 3f);
-                FloodMultiplier = IsDrought ? 0 : FloodMultiplier;
-                _quickNotificationService.SendWarningNotification(msg);
-                Debug.Log(msg+"\tToggle:\t"+ TimeToDroughtToggle);
+                if (IsDrought)
+                {
+                    var msg = "Drought started";
+                    TimeToDroughtToggle = _randomNumberGenerator.Range(DroughtMinDuration * handicap, DroughtMaxDuration * handicap); // _randomNumberGenerator.Range(TemperateMinDuration, TemperateMaxDuration * 2f);
+                    FloodMultiplier = 0;
+                    _quickNotificationService.SendWarningNotification(msg);
+                    Debug.Log(msg + "\tToggle:\t" + TimeToDroughtToggle);
+                }
+                else
+                {
+                    var msg = "Drought ended";
+                    cycleCompleted = !IsBadTide;
+                    TimeToDroughtToggle = _randomNumberGenerator.Range(0f, TemperateMaxDuration * 2f);
+                    _quickNotificationService.SendWarningNotification(msg);
+                    Debug.Log(msg + "\tToggle:\t" + TimeToDroughtToggle);
+                }
             }
             if (TimeToFloodTrigger < 0)
             {
                 var msg = "Flood started";
-                EventCount++;
                 if (_randomNumberGenerator.Range(0f, 1f) < 0.35) // Floods usually come in waves
                 {
-                    TimeToFloodTrigger = _randomNumberGenerator.Range(TemperateMinDuration , TemperateMaxDuration * 3f);
+                    TimeToFloodTrigger = _randomNumberGenerator.Range(TemperateMinDuration / 2, TemperateMaxDuration * 3f);
                 }
                 else
                 {
-                    TimeToFloodTrigger = _randomNumberGenerator.Range(400, 1200); // waves spawn with 1-3 days delay inbetween
+                    TimeToFloodTrigger = _randomNumberGenerator.Range(ticks_per_day * 1, ticks_per_day * 3); // waves spawn with 1-3 days delay inbetween
                 }
                 FloodMultiplier = (IsDrought ? _randomNumberGenerator.Range(0.1f, 0.5f) : _randomNumberGenerator.Range(1.0f, 4.0f)) * handicap;
                 _quickNotificationService.SendWarningNotification(msg);
                 Debug.Log(msg + "\tSevereness\t" + FloodMultiplier + "\tTrigger:\t" + TimeToFloodTrigger);
             }
+            if (cycleCompleted)
+            {
+                _weatherService.GetType().GetProperty("CycleDay").SetValue(_weatherService, 0);
+                var cycle = _weatherService.GetType().GetProperty("Cycle");
+                cycle.SetValue(_weatherService, 1 + ((int)cycle.GetValue(_weatherService)));
+                TimeToBadTideToggle += TemperateMinDuration;
+                TimeToDroughtToggle += TemperateMinDuration;
+                TimeToFloodTrigger += TemperateMinDuration;
+            }
             UpdateWaterStrength();
+            BalanceTimers();
+            UpdatePanel();
+        }
+
+        private void BalanceTimers() // reinitialize timers if TemperateMaxDuration is exceeded on all Timers
+        {
+            if(!IsBadTide && !IsDrought && TimeToBadTideToggle > TemperateMaxDuration && TimeToDroughtToggle > TemperateMaxDuration && TimeToFloodTrigger > TemperateMaxDuration)
+            {
+                float diff = Mathf.Min(TimeToBadTideToggle, TimeToDroughtToggle, TimeToFloodTrigger) - TemperateMaxDuration;
+                TimeToBadTideToggle -= IsBadTide ? 0 : diff;
+                TimeToDroughtToggle -= IsDrought ? 0 : diff;
+                TimeToFloodTrigger -= diff;
+            }
+        }
+
+        private void UpdatePanel()
+        {
+            string SecondsToDayString(float seconds)
+            {
+                return (seconds / ticks_per_day).ToString("c1") + "d";
+            }
+            _weatherPanel.DroughtLabel.text = SecondsToDayString(TimeToDroughtToggle);
+            _weatherPanel.BadTideLabel.text = SecondsToDayString(TimeToBadTideToggle);
+            _weatherPanel.FloodLabel.text = SecondsToDayString(TimeToFloodTrigger);
         }
 
         private void UpdateSourcesArray()
@@ -348,10 +389,12 @@ namespace Timberborn_FloodSeason
                 + "\t" + SerializeFloatArray(waterSources.Select(x => MathF.Floor(x.CurrentStrength * 100) / 100.0f).ToArray()));*/
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051", Justification = "may has future use")]
         private string SerializeFloatArray(float[] a)
         {
             return string.Join(";", a);
         }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051", Justification = "may has future use")]
         private float[] DeserializeFloatArray(string s)
         {
             return Array.ConvertAll(s.Split(';'), float.Parse);
