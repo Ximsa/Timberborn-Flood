@@ -1,31 +1,16 @@
-﻿using BepInEx;
-using Bindito.Core;
-using UnityEngine;
-using Timberborn.BaseComponentSystem;
-using Timberborn.TimeSystem;
-using Timberborn.Common;
-using Timberborn.SingletonSystem;
-using HarmonyLib;
+﻿using HarmonyLib;
 using System;
-using TimberApi.ConfiguratorSystem;
-using TimberApi.SceneSystem;
+using Timberborn.ModManagerScene;
+
 
 namespace Timberborn_FloodSeason
 {
-    [BepInPlugin("org.bepinex.plugins.flood", "Flood", "0.1.7")]
-    [Configurator(SceneEntrypoint.InGame)]
-    public class Plugin : BaseUnityPlugin, IConfigurator
+    public class Plugin : IModStarter
     {
-        public void Configure(IContainerDefinition containerDefinition) // TimberAPI InGame entry
+        public void StartMod()
         {
-            containerDefinition.Bind<WaterControl>().AsSingleton();
-            containerDefinition.Bind<WeatherPanel>().AsSingleton();
-        }
-
-#pragma warning disable IDE0051
-        private void Awake(){ // BepInEx entry
-            Debug.Log("Harmony");
-            Harmony harmony = new Harmony("flood"); 
+            Console.WriteLine("Hello flood!");
+            Harmony harmony = new Harmony("flood");
             harmony.PatchAll();
         }
     }

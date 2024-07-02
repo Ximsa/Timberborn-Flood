@@ -1,30 +1,43 @@
-﻿using HarmonyLib;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using UnityEngine;
+using HarmonyLib;
 using Timberborn.HazardousWeatherSystem;
+using Timberborn.MapStateSystem;
+using Timberborn.SingletonSystem;
+using System.Reflection;
+using System;
+
 
 namespace Timberborn_FloodSeason
 {
     [HarmonyPatch(typeof(HazardousWeatherService))]
-    [HarmonyPatch("StartHazardousWeather")]
-    class HazardousWeatherServiceStartHazardousWeatherPatch
+    
+    class HazardousWeatherServicePatch
     {
-#pragma warning disable IDE0051
-        static bool Prefix()
+        [HarmonyPrefix]
+        [HarmonyPatch("SetForCycle")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Nicht verwendete private Member entfernen", Justification = "Harmony")]
+        static bool Prefix(
+            int cycle, 
+            MapEditorMode ____mapEditorMode, 
+            EventBus ____eventBus,
+            HazardousWeatherHistory ____hazardousWeatherHistory,
+            HazardousWeatherService __instance)
         {
+            if (!____mapEditorMode.IsMapEditor)
+            {
+                var ps = __instance.GetType().GetProperties();
+                PropertyInfo currentCycleHazardousWeatherInfo = ps[0]; // TODO: make cleaner
+                PropertyInfo hazardousWeatherDurationInfo = ps[1];
+                HazardousWeatherRandomizerReplacement hazardousWeatherRandomizer = HazardousWeatherRandomizerReplacementInstance.hazardousWeatherRandomizerReplacement;
+                IHazardousWeather hazard = hazardousWeatherRandomizer.GetRandomWeatherForCycle(cycle);
+                currentCycleHazardousWeatherInfo.SetValue(__instance, hazard);
+                int cyclesCount = ____hazardousWeatherHistory.GetCyclesCount(hazard.Id);
+                int hazardDuration = hazard.GetDurationAtCycle(cyclesCount + 1);
+                hazardousWeatherDurationInfo.SetValue(__instance, hazardDuration);
+                ____eventBus.Post(new HazardousWeatherSelectedEvent(hazard, hazardDuration));
+                Debug.Log(hazard.GetType().Name + " \t" + hazardDuration);
+            }
             return false;
         }
     }
-/*
-    [HarmonyPatch(typeof(HazardousWeatherService))]
-    [HarmonyPatch("EndHazardousWeather")]
-    class HazardousWeatherServiceEndHazardousWeatherPatch
-    {
-#pragma warning disable IDE0051
-        static bool Prefix()
-        {
-            return false;
-        }
-    }*/
 }

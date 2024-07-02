@@ -18,29 +18,11 @@
     <Reference Include="0Harmony">
       <HintPath>..\Timberborn-CSLisp\Libs\0Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="BepInEx">
-      <HintPath>..\Timberborn-CSLisp\Libs\BepInEx.dll</HintPath>
-    </Reference>
-    <Reference Include="BepInEx.Harmony">
-      <HintPath>..\Timberborn-CSLisp\Libs\BepInEx.Harmony.dll</HintPath>
-    </Reference>
-    <Reference Include="BepInEx.Preloader">
-      <HintPath>..\Timberborn-CSLisp\Libs\BepInEx.Preloader.dll</HintPath>
-    </Reference>
     <Reference Include="Bindito.Core">
-      <HintPath>..\Timberborn-CSLisp\Libs\Bindito.Core.dll</HintPath>
+      <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Bindito.Core.dll</HintPath>
     </Reference>
-    <Reference Include="TimberApi">
-      <HintPath>..\Timberborn-CSLisp\Libs\TimberApi.dll</HintPath>
-    </Reference>
-    <Reference Include="TimberApi.BepInEx.Plugin.Loader">
-      <HintPath>..\Timberborn-CSLisp\Libs\TimberApi.BepInEx.Plugin.Loader.dll</HintPath>
-    </Reference>
-    <Reference Include="TimberApi.Common">
-      <HintPath>..\Timberborn-CSLisp\Libs\TimberApi.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="TimberApi.Core">
-      <HintPath>..\Timberborn-CSLisp\Libs\TimberApi.Core.dll</HintPath>
+    <Reference Include="Bindito.Unity">
+      <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Bindito.Unity.dll</HintPath>
     </Reference>
     <Reference Include="Timberborn.BaseComponentSystem">
       <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.BaseComponentSystem.dll</HintPath>
@@ -48,32 +30,26 @@
     <Reference Include="Timberborn.Common">
       <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Timberborn.Core">
-      <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Timberborn.CoreUI">
-      <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.CoreUI.dll</HintPath>
-    </Reference>
-    <Reference Include="Timberborn.GameSaveRepositorySystem">
-      <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.GameSaveRepositorySystem.dll</HintPath>
-    </Reference>
     <Reference Include="Timberborn.GameSceneLoading">
       <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.GameSceneLoading.dll</HintPath>
+    </Reference>
+    <Reference Include="Timberborn.GameSound">
+      <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.GameSound.dll</HintPath>
     </Reference>
     <Reference Include="Timberborn.HazardousWeatherSystem">
       <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.HazardousWeatherSystem.dll</HintPath>
     </Reference>
-    <Reference Include="Timberborn.MapSystem">
-      <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.MapSystem.dll</HintPath>
+    <Reference Include="Timberborn.HazardousWeatherSystemUI">
+      <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.HazardousWeatherSystemUI.dll</HintPath>
+    </Reference>
+    <Reference Include="Timberborn.MapStateSystem">
+      <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.MapStateSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="Timberborn.ModManagerScene">
+      <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.ModManagerScene.dll</HintPath>
     </Reference>
     <Reference Include="Timberborn.Persistence">
       <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.Persistence.dll</HintPath>
-    </Reference>
-    <Reference Include="Timberborn.QuickNotificationSystem">
-      <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.QuickNotificationSystem.dll</HintPath>
-    </Reference>
-    <Reference Include="Timberborn.SaveSystem">
-      <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.SaveSystem.dll</HintPath>
     </Reference>
     <Reference Include="Timberborn.SceneLoading">
       <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.SceneLoading.dll</HintPath>
@@ -81,17 +57,11 @@
     <Reference Include="Timberborn.SingletonSystem">
       <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.SingletonSystem.dll</HintPath>
     </Reference>
-    <Reference Include="Timberborn.TemplateSystem">
-      <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.TemplateSystem.dll</HintPath>
-    </Reference>
-    <Reference Include="Timberborn.TickSystem">
-      <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.TickSystem.dll</HintPath>
+    <Reference Include="Timberborn.SkySystem">
+      <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.SkySystem.dll</HintPath>
     </Reference>
     <Reference Include="Timberborn.TimeSystem">
       <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.TimeSystem.dll</HintPath>
-    </Reference>
-    <Reference Include="Timberborn.UILayoutSystem">
-      <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.UILayoutSystem.dll</HintPath>
     </Reference>
     <Reference Include="Timberborn.WaterSourceSystem">
       <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.WaterSourceSystem.dll</HintPath>
@@ -102,20 +72,8 @@
     <Reference Include="Timberborn.WeatherSystem">
       <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.WeatherSystem.dll</HintPath>
     </Reference>
-    <Reference Include="Timberborn.WeatherSystemUI">
-      <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Timberborn.WeatherSystemUI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.InputSystem">
-      <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\Unity.InputSystem.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath>..\Timberborn-Quadruple-Terrain-Height\Libs\UnityEngine.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\Timberborn-Quadruple-Terrain-Height\Libs\UnityEngine.CoreModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UIElementsModule">
-      <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\UnityEngine.UIElementsModule.dll</HintPath>
+      <HintPath>G:\GOG Games\Timberborn\Timberborn_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
   </ItemGroup>
 
