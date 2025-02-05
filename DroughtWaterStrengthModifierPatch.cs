@@ -4,7 +4,7 @@ using System.Reflection;
 using Timberborn.HazardousWeatherSystem;
 using Timberborn.WeatherSystem;
 
-namespace Timberborn_FloodSeason
+namespace Timberborn.FloodSeason
 {
     [HarmonyPatch]
     class DroughtWaterStrengthModifierPatch

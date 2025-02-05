@@ -3,7 +3,7 @@ using System;
 using System.Reflection;
 using Timberborn.GameSound;
 
-namespace Timberborn_FloodSeason
+namespace Timberborn.FloodSeason
 {
     [HarmonyPatch]
     class HazardousWeatherSoundPlayerPatch

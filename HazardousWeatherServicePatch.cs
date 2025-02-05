@@ -7,10 +7,9 @@ using System.Reflection;
 using System;
 
 
-namespace Timberborn_FloodSeason
+namespace Timberborn.FloodSeason
 {
     [HarmonyPatch(typeof(HazardousWeatherService))]
-    
     class HazardousWeatherServicePatch
     {
         [HarmonyPrefix]

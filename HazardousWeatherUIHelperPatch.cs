@@ -4,7 +4,7 @@ using System;
 using System.Reflection;
 using Timberborn.HazardousWeatherSystemUI;
 
-namespace Timberborn_FloodSeason
+namespace Timberborn.FloodSeason
 {
     [HarmonyPatch(typeof(HazardousWeatherUIHelper))]
     class HazardousWeatherUIHelperPatch
@@ -16,13 +16,7 @@ namespace Timberborn_FloodSeason
         {
             if(__exception is InvalidOperationException) 
             {
-                __instance
-                .GetType()
-                .GetField("_currentUISpecification", BindingFlags.NonPublic | BindingFlags.Instance)
-                .SetValue(__instance, __instance
-                                          .GetType()
-                                          .GetField("_badtideWeatherUISpecification", BindingFlags.NonPublic | BindingFlags.Instance)
-                                          .GetValue(__instance));
+                __instance._currentUISpecification = __instance._badtideWeatherUISpecification;
             }
             return null;
         }

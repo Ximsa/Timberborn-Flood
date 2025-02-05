@@ -2,7 +2,7 @@
 using Timberborn.HazardousWeatherSystem;
 using UnityEngine;
 
-namespace Timberborn_FloodSeason
+namespace Timberborn.FloodSeason
 {
 	class HazardousWeatherRandomizerReplacement
 	{

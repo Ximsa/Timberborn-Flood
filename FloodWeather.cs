@@ -1,13 +1,14 @@
 using System;
 using Timberborn.Common;
 using Timberborn.GameSceneLoading;
+using Timberborn.HazardousWeatherSystem;
 using Timberborn.MapStateSystem;
 using Timberborn.Persistence;
 using Timberborn.SceneLoading;
 using Timberborn.SingletonSystem;
 using UnityEngine;
 
-namespace Timberborn.HazardousWeatherSystem
+namespace Timberborn.FloodSeason
 {
 	public class FloodWeather : IHazardousWeather, ISaveableSingleton, ILoadableSingleton
 	{
