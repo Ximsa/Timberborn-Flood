@@ -1,15 +1,14 @@
 ﻿using HarmonyLib;
-using System;
 using Timberborn.ModManagerScene;
+using UnityEngine;
 
-
-namespace Timberborn_FloodSeason
+namespace Timberborn.FloodSeason
 {
     public class Plugin : IModStarter
     {
         public void StartMod()
         {
-            Console.WriteLine("Hello flood!");
+            Debug.Log("Hello flood!");
             Harmony harmony = new Harmony("flood");
             harmony.PatchAll();
         }

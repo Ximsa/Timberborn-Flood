@@ -29,10 +29,12 @@ namespace Timberborn.FloodSeason
                 PropertyInfo hazardousWeatherDurationInfo = ps[1];
                 HazardousWeatherRandomizerReplacement hazardousWeatherRandomizer = HazardousWeatherRandomizerReplacementInstance.hazardousWeatherRandomizerReplacement;
                 IHazardousWeather hazard = hazardousWeatherRandomizer.GetRandomWeatherForCycle(cycle);
-                currentCycleHazardousWeatherInfo.SetValue(__instance, hazard);
+                __instance.CurrentCycleHazardousWeather = hazard;
+                //currentCycleHazardousWeatherInfo.SetValue(__instance, hazard);
                 int cyclesCount = ____hazardousWeatherHistory.GetCyclesCount(hazard.Id);
                 int hazardDuration = hazard.GetDurationAtCycle(cyclesCount + 1);
-                hazardousWeatherDurationInfo.SetValue(__instance, hazardDuration);
+                __instance.HazardousWeatherDuration = hazardDuration;
+                //hazardousWeatherDurationInfo.SetValue(__instance, hazardDuration);
                 ____eventBus.Post(new HazardousWeatherSelectedEvent(hazard, hazardDuration));
                 Debug.Log(hazard.GetType().Name + " \t" + hazardDuration);
             }

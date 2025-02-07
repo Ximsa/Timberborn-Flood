@@ -32,14 +32,20 @@ namespace Timberborn.FloodSeason
 
 		public void Initialize(NewGameMode newGameMode)
 		{
-			this.Initialize(newGameMode.BadtideDuration.Min, newGameMode.BadtideDuration.Max, newGameMode.BadtideDurationHandicapMultiplier, newGameMode.BadtideDurationHandicapCycles, newGameMode.CyclesBeforeRandomizingBadtide, newGameMode.ChanceForBadtide);
+			this.Initialize(
+				newGameMode.BadtideDuration.Min, 
+				newGameMode.BadtideDuration.Max, 
+				newGameMode.BadtideDurationHandicapMultiplier, 
+				newGameMode.BadtideDurationHandicapCycles, 
+				newGameMode.CyclesBeforeRandomizingBadtide, 
+				newGameMode.ChanceForBadtide);
 		}
 
 		public void Save(ISingletonSaver singletonSaver)
 		{
 			if (!this._mapEditorMode.IsMapEditor)
 			{
-				IObjectSaver singleton = singletonSaver.GetSingleton(FloodWeather.FloodWeatherStoreKey);
+				IObjectSaver singleton = singletonSaver.GetSingleton(FloodWeather.FloodWeatherKey);
 				singleton.Set(FloodWeather.MinDurationKey, this._minDuration);
 				singleton.Set(FloodWeather.MaxDurationKey, this._maxDuration);
 				singleton.Set(FloodWeather.HandicapMultiplierKey, this._handicapMultiplier);
@@ -56,7 +62,13 @@ namespace Timberborn.FloodSeason
 				if (this._singletonLoader.HasSingleton(FloodWeather.FloodWeatherKey))
 				{
 					IObjectLoader singleton = this._singletonLoader.GetSingleton(FloodWeather.FloodWeatherKey);
-					this.Initialize(singleton.Get(FloodWeather.MinDurationKey), singleton.Get(FloodWeather.MaxDurationKey), singleton.Get(FloodWeather.HandicapMultiplierKey), singleton.Get(FloodWeather.HandicapCyclesKey), singleton.Get(FloodWeather.CyclesBeforeRandomizingKey), singleton.Get(FloodWeather.ChanceForFloodWeatherKey));
+					this.Initialize(
+						singleton.Get(FloodWeather.MinDurationKey), 
+						singleton.Get(FloodWeather.MaxDurationKey), 
+						singleton.Get(FloodWeather.HandicapMultiplierKey), 
+						singleton.Get(FloodWeather.HandicapCyclesKey), 
+						singleton.Get(FloodWeather.CyclesBeforeRandomizingKey), 
+						singleton.Get(FloodWeather.ChanceForFloodWeatherKey));
 					return;
 				}
 				GameSceneParameters gameSceneParameters;
@@ -104,14 +116,13 @@ namespace Timberborn.FloodSeason
 		}
 
 
-		private static readonly SingletonKey FloodWeatherKey = new SingletonKey("BadtideWeather");
-		private static readonly SingletonKey FloodWeatherStoreKey = new SingletonKey("FloodWeather");
-		private static readonly PropertyKey<int> MinDurationKey = new PropertyKey<int>("MinBadtideWeatherDuration");
-		private static readonly PropertyKey<int> MaxDurationKey = new PropertyKey<int>("MaxBadtideWeatherDuration");
+		private static readonly SingletonKey FloodWeatherKey = new SingletonKey("FloodWeather");
+		private static readonly PropertyKey<int> MinDurationKey = new PropertyKey<int>("MinWeatherDuration");
+		private static readonly PropertyKey<int> MaxDurationKey = new PropertyKey<int>("MaxWeatherDuration");
 		private static readonly PropertyKey<float> HandicapMultiplierKey = new PropertyKey<float>("HandicapMultiplier");
 		private static readonly PropertyKey<int> HandicapCyclesKey = new PropertyKey<int>("HandicapCycles");
 		private static readonly PropertyKey<int> CyclesBeforeRandomizingKey = new PropertyKey<int>("CyclesBeforeRandomizing");
-		private static readonly PropertyKey<float> ChanceForFloodWeatherKey = new PropertyKey<float>("ChanceBadtideWeather");
+		private static readonly PropertyKey<float> ChanceForFloodWeatherKey = new PropertyKey<float>("ChanceForFloodWeather");
 		private readonly ISingletonLoader _singletonLoader;
 		private readonly IRandomNumberGenerator _randomNumberGenerator;
 		private readonly MapEditorMode _mapEditorMode;
