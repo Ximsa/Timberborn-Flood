@@ -8,9 +8,9 @@ namespace Timberborn.FloodSeason
   {
     // Token: 0x0600002F RID: 47 RVA: 0x00002B37 File Offset: 0x00000D37
     public HazardousWeatherRandomizerReplacement(
-      DroughtWeather         droughtWeather,
-      BadtideWeather         badtideWeather,
-      FloodWeather           floodWeather,
+      DroughtWeather droughtWeather,
+      BadtideWeather badtideWeather,
+      FloodWeather floodWeather,
       IRandomNumberGenerator randomNumberGenerator)
     {
       this._droughtWeather        = droughtWeather;

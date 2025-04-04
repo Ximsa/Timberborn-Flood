@@ -2,10 +2,12 @@
 
 namespace Timberborn.FloodSeason
 {
+  [Context("MainMenu")]
+  [Context("Game")]
   internal class FloodConfigurator : Configurator
   {
     // Token: 0x06000049 RID: 73 RVA: 0x00002F0C File Offset: 0x0000110C
-    public override void Configure()
+    protected override void Configure()
     {
       Bind<HazardousWeatherRandomizerReplacement>().AsSingleton();
       Bind<FloodWeather>().AsSingleton();
