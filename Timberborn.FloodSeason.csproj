@@ -1,51 +1,51 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <RootNamespace>Timberborn.FloodSeason</RootNamespace>
-    <AssemblyName>Timberborn.FloodSeason</AssemblyName>
-    <EnableNETAnalyzers>true</EnableNETAnalyzers>
-	  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <RootNamespace>Timberborn.FloodSeason</RootNamespace>
+        <AssemblyName>Timberborn.FloodSeason</AssemblyName>
+        <EnableNETAnalyzers>true</EnableNETAnalyzers>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 
-  </PropertyGroup>
+    </PropertyGroup>
 
-  <ItemGroup>
-	  <Reference Include="G:\GOG Games\Timberborn\Timberborn_Data\Managed\publicized_assemblies\T*.dll" />
-	  <Reference Include="G:\GOG Games\Timberborn\Timberborn_Data\Managed\publicized_assemblies\U*.dll" />
-	  <Reference Include="G:\GOG Games\Timberborn\Timberborn_Data\Managed\publicized_assemblies\B*.dll" />
-  </ItemGroup>
+    <ItemGroup>
+        <Reference Include="G:\GOG Games\Timberborn\Timberborn_Data\Managed\publicized_assemblies\T*.dll"/>
+        <Reference Include="G:\GOG Games\Timberborn\Timberborn_Data\Managed\publicized_assemblies\U*.dll"/>
+        <Reference Include="G:\GOG Games\Timberborn\Timberborn_Data\Managed\publicized_assemblies\B*.dll"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="0Harmony">
-      <HintPath>D:\OneDrive\Dokumente\Timberborn\Mods\harmony_4149561_2.3.3\0Harmony.dll</HintPath>
-    </Reference>
-    <Reference Include="ModSettings.ColorPicker">
-      <HintPath>D:\OneDrive\Dokumente\Timberborn\Mods\mod-settings_4145545_0.7.2.0\version-0.7\Scripts\ModSettings.ColorPicker.dll</HintPath>
-    </Reference>
-    <Reference Include="ModSettings.Common">
-      <HintPath>D:\OneDrive\Dokumente\Timberborn\Mods\mod-settings_4145545_0.7.2.0\version-0.7\Scripts\ModSettings.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="ModSettings.CommonUI">
-      <HintPath>D:\OneDrive\Dokumente\Timberborn\Mods\mod-settings_4145545_0.7.2.0\version-0.7\Scripts\ModSettings.CommonUI.dll</HintPath>
-    </Reference>
-    <Reference Include="ModSettings.Core">
-      <HintPath>D:\OneDrive\Dokumente\Timberborn\Mods\mod-settings_4145545_0.7.2.0\version-0.7\Scripts\ModSettings.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="ModSettings.CoreUI">
-      <HintPath>D:\OneDrive\Dokumente\Timberborn\Mods\mod-settings_4145545_0.7.2.0\version-0.7\Scripts\ModSettings.CoreUI.dll</HintPath>
-    </Reference>
-    <Reference Include="ModSettings.GameUI">
-      <HintPath>D:\OneDrive\Dokumente\Timberborn\Mods\mod-settings_4145545_0.7.2.0\version-0.7\Scripts\ModSettings.GameUI.dll</HintPath>
-    </Reference>
-    <Reference Include="ModSettings.MainMenuUI">
-      <HintPath>D:\OneDrive\Dokumente\Timberborn\Mods\mod-settings_4145545_0.7.2.0\version-0.7\Scripts\ModSettings.MainMenuUI.dll</HintPath>
-    </Reference>
-    <Reference Include="ModSettings.MapEditorUI">
-      <HintPath>D:\OneDrive\Dokumente\Timberborn\Mods\mod-settings_4145545_0.7.2.0\version-0.7\Scripts\ModSettings.MapEditorUI.dll</HintPath>
-    </Reference>
-    <Reference Include="ModSettings.ModManager">
-      <HintPath>D:\OneDrive\Dokumente\Timberborn\Mods\mod-settings_4145545_0.7.2.0\version-0.7\Scripts\ModSettings.ModManager.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+    <ItemGroup>
+        <Reference Include="0Harmony">
+            <HintPath>D:\OneDrive\Dokumente\Timberborn\Mods\harmony_4149561_2.3.3\0Harmony.dll</HintPath>
+        </Reference>
+        <Reference Include="ModSettings.ColorPicker">
+            <HintPath>D:\OneDrive\Dokumente\Timberborn\Mods\mod-settings_4145545_0.7.2.0\version-0.7\Scripts\ModSettings.ColorPicker.dll</HintPath>
+        </Reference>
+        <Reference Include="ModSettings.Common">
+            <HintPath>D:\OneDrive\Dokumente\Timberborn\Mods\mod-settings_4145545_0.7.2.0\version-0.7\Scripts\ModSettings.Common.dll</HintPath>
+        </Reference>
+        <Reference Include="ModSettings.CommonUI">
+            <HintPath>D:\OneDrive\Dokumente\Timberborn\Mods\mod-settings_4145545_0.7.2.0\version-0.7\Scripts\ModSettings.CommonUI.dll</HintPath>
+        </Reference>
+        <Reference Include="ModSettings.Core">
+            <HintPath>D:\OneDrive\Dokumente\Timberborn\Mods\mod-settings_4145545_0.7.2.0\version-0.7\Scripts\ModSettings.Core.dll</HintPath>
+        </Reference>
+        <Reference Include="ModSettings.CoreUI">
+            <HintPath>D:\OneDrive\Dokumente\Timberborn\Mods\mod-settings_4145545_0.7.2.0\version-0.7\Scripts\ModSettings.CoreUI.dll</HintPath>
+        </Reference>
+        <Reference Include="ModSettings.GameUI">
+            <HintPath>D:\OneDrive\Dokumente\Timberborn\Mods\mod-settings_4145545_0.7.2.0\version-0.7\Scripts\ModSettings.GameUI.dll</HintPath>
+        </Reference>
+        <Reference Include="ModSettings.MainMenuUI">
+            <HintPath>D:\OneDrive\Dokumente\Timberborn\Mods\mod-settings_4145545_0.7.2.0\version-0.7\Scripts\ModSettings.MainMenuUI.dll</HintPath>
+        </Reference>
+        <Reference Include="ModSettings.MapEditorUI">
+            <HintPath>D:\OneDrive\Dokumente\Timberborn\Mods\mod-settings_4145545_0.7.2.0\version-0.7\Scripts\ModSettings.MapEditorUI.dll</HintPath>
+        </Reference>
+        <Reference Include="ModSettings.ModManager">
+            <HintPath>D:\OneDrive\Dokumente\Timberborn\Mods\mod-settings_4145545_0.7.2.0\version-0.7\Scripts\ModSettings.ModManager.dll</HintPath>
+        </Reference>
+    </ItemGroup>
 
 </Project>

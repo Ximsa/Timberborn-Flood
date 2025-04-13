@@ -1,7 +1,8 @@
-﻿using HarmonyLib;
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using HarmonyLib;
+using JetBrains.Annotations;
 using Timberborn.HazardousWeatherSystem;
 using Timberborn.WeatherSystem;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace Timberborn.FloodSeason
 {
   [HarmonyPatch]
   [SuppressMessage("ReSharper", "InconsistentNaming")]
+  [UsedImplicitly]
   internal class DroughtWaterStrengthModifierPatch
   {
     public static MethodBase TargetMethod()
@@ -23,9 +25,9 @@ namespace Timberborn.FloodSeason
     }
 
     public static void Postfix(
-      ref float                   __result,
+      ref float __result,
       ref HazardousWeatherService ____hazardousWeatherService,
-      WeatherService              ____weatherService)
+      WeatherService ____weatherService)
     {
       if (!(____hazardousWeatherService.CurrentCycleHazardousWeather is FloodWeather)
        || !____weatherService.IsHazardousWeather) return;

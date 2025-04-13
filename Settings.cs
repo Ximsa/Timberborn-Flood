@@ -7,6 +7,14 @@ namespace Timberborn.FloodSeason
 {
   internal class Settings : ModSettingsOwner
   {
+    public Settings(ISettings settings,
+                    ModSettingsOwnerRegistry modSettingsOwnerRegistry,
+                    ModRepository modRepository)
+        : base(settings, modSettingsOwnerRegistry, modRepository)
+    {
+      SettingsInstance.Settings = this;
+    }
+
     public RangeIntModSetting ChanceForFlood { get; } =
       new RangeIntModSetting(25,
                              0,
@@ -17,16 +25,8 @@ namespace Timberborn.FloodSeason
       new ModSetting<float>(3,
                             ModSettingDescriptor.CreateLocalized("Ximsa.FloodSeason.FloodStrength"));
 
-    public Settings(ISettings                settings,
-                    ModSettingsOwnerRegistry modSettingsOwnerRegistry,
-                    ModRepository            modRepository)
-        : base(settings, modSettingsOwnerRegistry, modRepository)
-    {
-      SettingsInstance.Settings = this;
-    }
-
-    public override    string HeaderLocKey => "Ximsa.FloodSeason.Header";
-    protected override string ModId        => "Ximsa.FloodSeason";
+    public override string HeaderLocKey => "Ximsa.FloodSeason.Header";
+    protected override string ModId => "Ximsa.FloodSeason";
   }
 
   internal static class SettingsInstance

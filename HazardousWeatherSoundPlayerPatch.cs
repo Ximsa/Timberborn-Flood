@@ -1,13 +1,15 @@
-﻿using HarmonyLib;
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using HarmonyLib;
+using JetBrains.Annotations;
 using Timberborn.GameSound;
 
 namespace Timberborn.FloodSeason
 {
   [HarmonyPatch]
   [SuppressMessage("ReSharper", "InconsistentNaming")]
+  [UsedImplicitly]
   internal class HazardousWeatherSoundPlayerPatch
   {
     public static MethodBase TargetMethod()
@@ -24,13 +26,10 @@ namespace Timberborn.FloodSeason
     [SuppressMessage("CodeQuality",
                      "IDE0051:Nicht verwendete private Member entfernen",
                      Justification = "Harmony")]
-    private static Exception Finalizer(Exception             __exception,
+    private static Exception Finalizer(Exception __exception,
                                        GameUISoundController ____gameUISoundController) // TODO: play own sound
     {
-      if (__exception is ArgumentException)
-      {
-        ____gameUISoundController.PlayBadtideStartedSound();
-      }
+      if (__exception is ArgumentException) ____gameUISoundController.PlayBadtideStartedSound();
 
       return null;
     }
