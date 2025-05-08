@@ -6,6 +6,7 @@
         <AssemblyName>Timberborn.FloodSeason</AssemblyName>
         <EnableNETAnalyzers>true</EnableNETAnalyzers>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <LangVersion>10</LangVersion>
 
     </PropertyGroup>
 

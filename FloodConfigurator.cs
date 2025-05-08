@@ -1,14 +1,13 @@
 ﻿using Bindito.Core;
 
-namespace Timberborn.FloodSeason
+namespace Timberborn.FloodSeason;
+
+[Context("Game")]
+internal class FloodConfigurator : Configurator
 {
-  [Context("Game")]
-  internal class FloodConfigurator : Configurator
+  protected override void Configure()
   {
-    protected override void Configure()
-    {
-      Bind<HazardousWeatherRandomizerReplacement>().AsSingleton();
-      Bind<FloodWeather>().AsSingleton();
-    }
+    Bind<FloodWeather>().AsSingleton();
+    Bind<HazardousWeatherRandomizerReplacement>().AsSingleton();
   }
 }
